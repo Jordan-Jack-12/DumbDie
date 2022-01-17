@@ -1,0 +1,187 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://player/playerNew.png" type="Texture" id=1]
+[ext_resource path="res://player/player.gd" type="Script" id=2]
+[ext_resource path="res://game elements/heartnew.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/progreessbar.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/prolower.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Font/Silverfinster-x3L2K.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Assets/sounds/bombblast.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/sounds/Powerup 10 - Sound effects Pack 2.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/sounds/Coins 10 - Sound effects Pack 2.wav" type="AudioStream" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 4.98158 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 4, 5, 4 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "idle"
+length = 0.9
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "walk"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 8, 9 ]
+}
+
+[sub_resource type="DynamicFont" id=6]
+font_data = ExtResource( 6 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 30, 30 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 30, 30 )
+
+[sub_resource type="RectangleShape2D" id=9]
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 4
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 5.99524 )
+shape = SubResource( 1 )
+
+[node name="elementsDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="elementsDetector"]
+position = Vector2( 0, -10 )
+shape = SubResource( 2 )
+one_way_collision = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/hurt = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/walk = SubResource( 5 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health" type="TextureProgress" parent="CanvasLayer/UI"]
+margin_left = 8.40896
+margin_top = 4.20448
+margin_right = 56.409
+margin_bottom = 13.2045
+value = 100.0
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hearttexture" type="TextureRect" parent="CanvasLayer/UI"]
+margin_right = 16.0
+margin_bottom = 16.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -43.5738
+margin_top = 0.210224
+margin_right = -3.57381
+margin_bottom = 17.2102
+custom_fonts/font = SubResource( 6 )
+text = "100"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controller" type="Control" parent="CanvasLayer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -61.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="left" type="TouchScreenButton" parent="CanvasLayer/Controller"]
+shape = SubResource( 7 )
+action = "left"
+
+[node name="right" type="TouchScreenButton" parent="CanvasLayer/Controller"]
+position = Vector2( 84, 0 )
+shape = SubResource( 8 )
+action = "right"
+
+[node name="jump" type="TouchScreenButton" parent="CanvasLayer/Controller"]
+position = Vector2( 62, 27 )
+shape = SubResource( 9 )
+action = "jump"
+
+[node name="blast" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -15.0
+
+[node name="powerup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -20.0
+
+[node name="coincollect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -5.0
+
+[node name="slowTimer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+
+[connection signal="area_entered" from="elementsDetector" to="." method="_on_elementsDetector_area_entered"]
+[connection signal="timeout" from="slowTimer" to="." method="_on_slowTimer_timeout"]

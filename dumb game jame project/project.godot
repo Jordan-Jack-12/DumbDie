@@ -1,0 +1,80 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "bomb",
+"language": "GDScript",
+"path": "res://game elements/bomb.gd"
+}, {
+"base": "Area2D",
+"class": "heart",
+"language": "GDScript",
+"path": "res://game elements/Heart.gd"
+}, {
+"base": "Area2D",
+"class": "powerup",
+"language": "GDScript",
+"path": "res://game elements/PowerUp.gd"
+} ]
+_global_script_class_icons={
+"bomb": "",
+"heart": "",
+"powerup": ""
+}
+
+[application]
+
+config/name="dumb game jame project"
+run/main_scene="res://menus/MainMenu.tscn"
+config/icon="res://icon.png"
+
+[display]
+
+window/size/width=144
+window/size/height=160
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[input]
+
+jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+blast={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
